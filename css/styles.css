@@ -1,0 +1,156 @@
+/* ============================================================
+   SAMAQ — Custom Styles
+   الألوان مأخوذة من نفس الهوية اللونية الدافئة (بيج / بني / ذهبي)
+   المستخدمة في تصميم المنيو المرجعي.
+   ============================================================ */
+
+:root {
+  --samaq-green: #a47c43;       /* اللون الأساسي (بني ذهبي دافئ) */
+  --samaq-green-dark: #8b6735;  /* هوفر/تركيز للون الأساسي */
+  --samaq-blue: #5c4326;        /* اللون الثانوي (بني غامق) */
+  --samaq-blue-dark: #4a3620;
+  --samaq-gold: #e3b23c;        /* لون ذهبي مميز للشارات */
+  --samaq-black: #2e2013;       /* بني غامق جدًا بدل الأسود */
+  --samaq-white: #FFFFFF;
+  --samaq-cream: #f7eed7;       /* خلفية بيج دافئة */
+  --samaq-border: #d8c8a7;      /* لون الحدود الفاتح */
+  --samaq-muted: #8c7355;       /* لون نص باهت دافئ */
+}
+
+* { -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  font-family: 'Cairo', 'Tajawal', system-ui, sans-serif;
+  background-color: var(--samaq-cream);
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d8c8a7' fill-opacity='0.25'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  color: #4a3b2c;
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar { height: 6px; width: 6px; }
+::-webkit-scrollbar-thumb { background: var(--samaq-border); border-radius: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Brand utility colors (works alongside Tailwind's arbitrary values,
+   kept as classes too for readability in the JSX) */
+.bg-samaq-green { background-color: var(--samaq-green); }
+.bg-samaq-blue { background-color: var(--samaq-blue); }
+.bg-samaq-gold { background-color: var(--samaq-gold); }
+.text-samaq-green { color: var(--samaq-green); }
+.text-samaq-blue { color: var(--samaq-blue); }
+.text-samaq-gold { color: var(--samaq-gold); }
+.border-samaq-green { border-color: var(--samaq-green); }
+
+/* رأس الصفحة — أبيض دافئ بخط سفلي بلون البراند بدل التدرج الأزرق/الأخضر */
+.samaq-gradient-header {
+  background: var(--samaq-white);
+  color: #4a3b2c;
+  border-bottom: 3px solid var(--samaq-green);
+}
+.samaq-gradient-header * { color: inherit; }
+.samaq-gradient-header .bg-white\/15 { background-color: rgba(164,124,67,.12); }
+.samaq-gradient-header .bg-white\/15:hover,
+.samaq-gradient-header .hover\:bg-white\/25:hover { background-color: rgba(164,124,67,.22); }
+.samaq-gradient-header img { filter: none; }
+
+.item-image-fallback {
+  background: linear-gradient(160deg, #f6efdd 0%, #f0e4c4 55%, #ecdcb2 100%);
+  position: relative;
+  overflow: hidden;
+}
+.item-image-fallback::after {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 30% 20%, rgba(92,67,38,0.08), transparent 60%),
+                     radial-gradient(circle at 80% 80%, rgba(164,124,67,0.12), transparent 55%);
+}
+
+.category-pill {
+  transition: all .18s ease;
+  white-space: nowrap;
+}
+.category-pill[data-active="true"] {
+  background: var(--samaq-green);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(164,124,67,.35);
+}
+.category-pill[data-active="false"] {
+  background: #fff;
+  color: var(--samaq-blue);
+  border: 1px solid var(--samaq-border);
+}
+.category-pill[data-active="false"]:hover { border-color: var(--samaq-green); color: var(--samaq-green); }
+
+.item-card {
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.item-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(74,59,44,.14); }
+
+.fab-cart {
+  box-shadow: 0 10px 30px rgba(164,124,67,.40);
+}
+
+.slide-in { animation: slideIn .28s ease forwards; }
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.fade-in { animation: fadeIn .2s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.pop-in { animation: popIn .18s ease forwards; }
+@keyframes popIn { from { opacity:0; transform: scale(.96);} to {opacity:1; transform: scale(1);} }
+
+.social-btn {
+  width: 44px; height: 44px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  background: #ffffff14;
+  border: 1px solid #ffffff26;
+  transition: all .15s ease;
+}
+.social-btn:hover { background: #ffffff26; transform: translateY(-2px); }
+
+.store-btn {
+  display: flex; align-items: center; gap: 10px;
+  background: #000; color: #fff;
+  border-radius: 10px; padding: 8px 16px;
+  border: 1px solid #333;
+  transition: all .15s ease;
+}
+.store-btn:hover { border-color: #666; transform: translateY(-1px); }
+
+.drag-handle { cursor: grab; }
+.drag-handle:active { cursor: grabbing; }
+.drag-over { outline: 2px dashed var(--samaq-green); outline-offset: 4px; background: #f3ead1; }
+
+input[type="text"], input[type="tel"], input[type="number"], input[type="url"], textarea, select {
+  font-family: inherit;
+}
+
+/* ---- تعديل ألوان تدرجات Tailwind الرمادية/الزرقاء/الحمراء الجاهزة
+        عشان تتماشى مع اللوحة الدافئة (بيج/بني/ذهبي) بدون ما نلمس
+        كل ملفات الـ JSX واحد واحد ---- */
+.bg-gray-50   { background-color: #f3e9d3 !important; }
+.bg-gray-100  { background-color: #f1e6c8 !important; }
+.bg-gray-200  { background-color: #e8dcc0 !important; }
+.bg-gray-300  { background-color: #d8c8a7 !important; }
+.border-gray-100 { border-color: #ede0c0 !important; }
+.border-gray-200 { border-color: #d8c8a7 !important; }
+.text-gray-300 { color: #c9b78e !important; }
+.text-gray-400 { color: #ab9573 !important; }
+.text-gray-500 { color: #8c7355 !important; }
+.text-gray-600 { color: #6b5738 !important; }
+.text-gray-700 { color: #4a3b2c !important; }
+.hover\:text-gray-600:hover { color: #6b5738 !important; }
+.bg-blue-50   { background-color: #f3e6bd !important; }
+.border-blue-50 { border-color: #f3e6bd !important; }
+.text-red-300 { color: #e57373 !important; }
+.text-red-400 { color: #e05353 !important; }
+.text-red-500 { color: #d32f2f !important; }
+.text-red-600 { color: #b71c1c !important; }
+.hover\:text-red-600:hover { color: #b71c1c !important; }
+
+@media print { .no-print { display: none !important; } }
