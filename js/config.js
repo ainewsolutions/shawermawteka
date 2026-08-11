@@ -4,5 +4,5 @@
 // ============================================================
 const SAMAQ_CONFIG = {
   sheetsApiUrl:
-    "https://script.google.com/macros/s/AKfycbxsiPDgjUSEPuiPO0htuTMg8H1LJB9bjcMWB-LsH4elu4w_Lp5xd6JEhzunucA3CBHE/exec",
+    "https://script.google.com/macros/s/AKfycbzJbIzZx_DZhaaI04ZoyQMujxJHKK7bh1GYRWY_QHi5R0IgsCY_NhDtmxWeuGScjZQ/exec",
 };
