@@ -110,7 +110,7 @@ function Footer({ settings }) {
         <div className="flex flex-col items-center gap-1.5 text-sm text-white/80">
           {settings.address && <p>{settings.address}</p>}
           {settings.phone && (
-            <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="flex items-center gap-2 font-bold text-white hover:text-samaq-gold transition" dir="ltr">
+            <a href={`tel:${String(settings.phone || "").replace(/\s/g, "")}`} className="flex items-center gap-2 font-bold text-white hover:text-samaq-gold transition" dir="ltr">
               <IconWhatsapp className="w-4 h-4" /> {settings.phone}
             </a>
           )}
