@@ -10,7 +10,7 @@ function Header({ cart, onOpenCart }) {
         <div className="flex items-center gap-2">
           <img src="assets/logo.png" alt="شاورما وتيكا" className="h-11 w-auto" />
           <div className="text-[#5c4326] leading-tight hidden sm:block">
-            <p className="font-extrabold text-sm">شاورما وتيكا</p>
+            <p className="font-display text-lg leading-none">شاورما وتيكا</p>
             <p className="text-[11px] text-[#8c7355]">شاورما، تيكا، بروستد ولحوم مشوية</p>
           </div>
         </div>
@@ -76,7 +76,7 @@ function Footer({ settings }) {
       <div className="max-w-5xl mx-auto px-6 flex flex-col items-center gap-8 text-center">
         {social.length > 0 && (
           <div>
-            <p className="text-lg font-bold mb-4">تابعنا</p>
+            <p className="font-display text-2xl mb-4 text-samaq-gold">تابعنا</p>
             <div className="flex items-center gap-3 justify-center">
               {social.map(({ key, url, Icon }) => (
                 <a key={key} href={url} target="_blank" rel="noreferrer" className="social-btn"><Icon className="w-5 h-5" /></a>
@@ -87,7 +87,7 @@ function Footer({ settings }) {
 
         {settings.googleReviewsEmbed && settings.googleReviewsEmbed.trim() && (
           <div className="w-full flex flex-col items-center gap-3">
-            <p className="text-lg font-bold">تقييمنا على جوجل</p>
+            <p className="font-display text-2xl text-samaq-gold">تقييمنا على جوجل</p>
             <EmbedBlock html={settings.googleReviewsEmbed} />
           </div>
         )}
@@ -118,7 +118,7 @@ function Footer({ settings }) {
 
         {hasStore && (
           <div>
-            <p className="text-lg font-bold mb-4">حمّل التطبيق</p>
+            <p className="font-display text-2xl mb-4 text-samaq-gold">حمّل التطبيق</p>
             <div className="flex items-center gap-4 flex-wrap justify-center">
               <a
                 href="https://media-files.tryordersystem.com/tenant/samaq/settings/66434b89aa9d5.jpeg"

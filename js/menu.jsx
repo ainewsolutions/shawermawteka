@@ -246,7 +246,7 @@ function ItemModal({ item, currency, onClose, onAdd }) {
         </div>
         <div className="p-5 flex flex-col gap-4">
           <div>
-            <h2 className="text-lg font-extrabold text-[#5c4326]">{item.name}</h2>
+            <h2 className="text-xl font-display text-[#5c4326]">{item.name}</h2>
             {item.description && <p className="text-sm text-gray-500 mt-1">{item.description}</p>}
             <p className="text-samaq-green font-bold mt-2">{formatPrice(item.price, currency)}</p>
           </div>
@@ -347,8 +347,13 @@ function MenuPage({ categories, items, settings, cart, setCart }) {
 
   return (
     <div>
-      <div className="flex justify-center pt-6 pb-2 bg-[#f7eed7]">
+      <div className="flex flex-col items-center pt-6 pb-3 bg-[#f7eed7]">
         <img src="assets/logo.png" alt="شاورما وتيكا" className="h-24 sm:h-28 w-auto drop-shadow-sm" />
+        <div className="flex items-center gap-2 mt-2 opacity-80">
+          <span className="w-10 h-px bg-samaq-gold"></span>
+          <IconStar className="w-3 h-3 text-samaq-gold" />
+          <span className="w-10 h-px bg-samaq-gold"></span>
+        </div>
       </div>
       <CategoryTabs categories={activeCategories} activeId={activeCat} onSelect={selectCategory} />
       <div ref={gridTopRef} className="max-w-5xl mx-auto px-3 pb-28">
@@ -359,7 +364,7 @@ function MenuPage({ categories, items, settings, cart, setCart }) {
                 <img src={cat.bannerImage} alt={cat.name} className="w-full h-auto max-h-72 object-contain mx-auto" loading="lazy" />
               </div>
             )}
-            <h2 className="text-lg font-extrabold text-[#5c4326] mb-3 flex items-center gap-2">
+            <h2 className="text-xl font-display text-[#5c4326] mb-3 flex items-center gap-2">
               <span className="w-1.5 h-5 bg-samaq-gold rounded-full inline-block"></span>
               {(() => { const Icon = categoryIconFor(cat.name); return <Icon className="w-5 h-5 text-samaq-blue" />; })()}
               {cat.name}
