@@ -1,40 +1,40 @@
 /* ============================================================
    شاورما وتيكا — Custom Styles
-   هوية بصرية احتفالية وفاخرة: أحمر ناري / برتقالي مشوي / ذهبي —
-   مستوحاة من ألوان المنيو المطبوع الأصلي (الجريل والنار والذهبي)،
-   بدل الشكل الباهت الفاتح اللي كان قبل كده.
+   هوية بصرية منعشة: أبيض / أخضر / أزرق سماوي — نظيفة وجذابة
+   بدل الألوان النارية الغامقة اللي كانت قبل كده.
    ============================================================ */
 
 :root {
-  --samaq-green: #D2450F;        /* أحمر-برتقالي ناري (أساسي/أزرار) */
-  --samaq-green-dark: #A8360C;   /* هوفر */
-  --samaq-blue: #6B1414;         /* عنابي غامق فاخر (ثانوي) */
-  --samaq-blue-dark: #4A0D0D;
-  --samaq-gold: #E8B23C;         /* ذهبي مميز للشارات والحدود */
-  --samaq-gold-light: #F6D785;
-  --samaq-maroon: #3D0F0A;       /* عنابي غامق جدًا (هيدر/فوتر) */
-  --samaq-black: #2B140A;        /* بني غامق جدًا بدل الأسود */
+  --samaq-green: #1FA765;        /* أخضر منعش (أساسي/أزرار/أسعار) */
+  --samaq-green-dark: #158049;   /* هوفر */
+  --samaq-blue: #1583B7;         /* أزرق سماوي غامق شوية (ثانوي/هيدر) */
+  --samaq-blue-dark: #0F6690;
+  --samaq-sky: #2CA9E1;          /* أزرق سماوي فاتح (لمسات وأزرار) */
+  --samaq-gold: #4FC3B0;         /* تركوازي مميز للشارات والخطوط الفاصلة */
+  --samaq-gold-light: #A7E8DC;
+  --samaq-maroon: #0F6690;       /* لون الهيدر/الفوتر الغامق (أزرق عميق بدل عنابي) */
+  --samaq-black: #223339;        /* رمادي-أزرق غامق للنصوص بدل البني */
   --samaq-white: #FFFFFF;
-  --samaq-cream: #FBE7B8;        /* لون احتياطي وراء التدرج */
-  --samaq-card: #FFFBF0;         /* خلفية الكروت (عاجي دافئ بدل أبيض ساكت) */
-  --samaq-border: #E3B96B;       /* حدود ذهبية فاتحة */
-  --samaq-muted: #8a6a4a;        /* لون نص باهت دافئ */
+  --samaq-cream: #EAF7F1;        /* لون احتياطي وراء التدرج (أبيض مخضر فاتح) */
+  --samaq-card: #FFFFFF;         /* خلفية الكروت — أبيض نضيف */
+  --samaq-border: #CFEFE3;       /* حدود خضراء فاتحة */
+  --samaq-muted: #5E7C79;        /* لون نص باهت هادئ */
 }
 
 * { -webkit-tap-highlight-color: transparent; }
 
 html, body {
   font-family: 'Cairo', 'Tajawal', system-ui, sans-serif;
-  color: #3D1408;
+  color: #223339;
   direction: rtl;
   scroll-behavior: smooth;
   background-color: var(--samaq-cream);
-  /* خلفية متدرجة نارية-ذهبية زي غلاف المنيو المطبوع، فوقها زخرفة
-     عربية خفيفة بلون ذهبي شفاف عشان تدي إحساس "فاخر ومزخرف" من
-     غير ما تفرقع في وش العميل أو تعوق قراءة المحتوى */
+  /* خلفية فاتحة منعشة: أبيض متدرج لأخضر فاتح لأزرق سماوي فاتح،
+     فوقها زخرفة هندسية شفافة جدًا عشان تدي إحساس حيوي من غير ما
+     تعوق قراءة المحتوى */
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 84 84'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-opacity='0.10' stroke-width='1.4'%3E%3Ccircle cx='42' cy='42' r='16'/%3E%3Ccircle cx='0' cy='0' r='16'/%3E%3Ccircle cx='84' cy='0' r='16'/%3E%3Ccircle cx='0' cy='84' r='16'/%3E%3Ccircle cx='84' cy='84' r='16'/%3E%3Cpath d='M42 26v-8M42 66v-8M26 42h-8M66 42h-8'/%3E%3C/g%3E%3C/svg%3E"),
-    linear-gradient(165deg, #7A1F0A 0%, #C1440E 32%, #E8720C 58%, #EFA23C 82%, #F3C969 100%);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 84 84'%3E%3Cg fill='none' stroke='%231FA765' stroke-opacity='0.08' stroke-width='1.4'%3E%3Ccircle cx='42' cy='42' r='16'/%3E%3Ccircle cx='0' cy='0' r='16'/%3E%3Ccircle cx='84' cy='0' r='16'/%3E%3Ccircle cx='0' cy='84' r='16'/%3E%3Ccircle cx='84' cy='84' r='16'/%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(165deg, #FFFFFF 0%, #EAF7F1 45%, #DDF2FA 100%);
   background-attachment: fixed;
   background-size: 84px 84px, cover;
 }
@@ -57,37 +57,36 @@ html, body {
 .text-samaq-gold { color: var(--samaq-gold); }
 .border-samaq-green { border-color: var(--samaq-green); }
 
-/* رأس الصفحة — عنابي غامق فاخر بدل الأبيض المسطح، بحد ذهبي سفلي
-   مزخرف زي إطارات المنيوهات المطبوعة */
+/* رأس الصفحة — أزرق سماوي غامق نظيف بدل العنابي الغامق */
 .samaq-gradient-header {
-  background: linear-gradient(180deg, var(--samaq-maroon) 0%, #2A0B07 100%);
-  color: #FBEBC7;
+  background: linear-gradient(180deg, var(--samaq-maroon) 0%, #0B4E6E 100%);
+  color: #F2FBFF;
   border-bottom: 3px solid var(--samaq-gold);
-  box-shadow: 0 4px 18px rgba(0,0,0,.35);
+  box-shadow: 0 4px 18px rgba(15,102,144,.25);
   position: relative;
 }
 .samaq-gradient-header::after {
   content: "";
   position: absolute; left: 0; right: 0; bottom: -6px; height: 6px;
-  background-image: repeating-linear-gradient(135deg, var(--samaq-gold) 0 6px, transparent 6px 12px);
-  opacity: .55;
+  background-image: repeating-linear-gradient(135deg, var(--samaq-green) 0 6px, var(--samaq-sky) 6px 12px);
+  opacity: .5;
 }
 .samaq-gradient-header * { color: inherit; }
-.samaq-gradient-header .bg-white\/15 { background-color: rgba(232,178,60,.14); }
+.samaq-gradient-header .bg-white\/15 { background-color: rgba(255,255,255,.14); }
 .samaq-gradient-header .bg-white\/15:hover,
-.samaq-gradient-header .hover\:bg-white\/25:hover { background-color: rgba(232,178,60,.26); }
-.samaq-gradient-header img { filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)); }
+.samaq-gradient-header .hover\:bg-white\/25:hover { background-color: rgba(255,255,255,.26); }
+.samaq-gradient-header img { filter: drop-shadow(0 2px 6px rgba(0,0,0,.2)); }
 
 .item-image-fallback {
-  background: linear-gradient(160deg, #FBEBC7 0%, #F3D493 55%, #E8B23C 100%);
+  background: linear-gradient(160deg, #EAF7F1 0%, #D7F0E6 55%, #C7EAF6 100%);
   position: relative;
   overflow: hidden;
 }
 .item-image-fallback::after {
   content: "";
   position: absolute; inset: 0;
-  background-image: radial-gradient(circle at 30% 20%, rgba(107,20,20,0.10), transparent 60%),
-                     radial-gradient(circle at 80% 80%, rgba(210,69,15,0.14), transparent 55%);
+  background-image: radial-gradient(circle at 30% 20%, rgba(21,131,183,0.10), transparent 60%),
+                     radial-gradient(circle at 80% 80%, rgba(31,167,101,0.14), transparent 55%);
 }
 
 .category-pill {
@@ -95,9 +94,9 @@ html, body {
   white-space: nowrap;
 }
 .category-pill[data-active="true"] {
-  background: linear-gradient(135deg, var(--samaq-green) 0%, #EF7A1E 100%);
+  background: linear-gradient(135deg, var(--samaq-green) 0%, var(--samaq-sky) 100%);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(210,69,15,.45), 0 0 0 2px var(--samaq-gold-light) inset;
+  box-shadow: 0 4px 14px rgba(31,167,101,.38), 0 0 0 2px var(--samaq-gold-light) inset;
 }
 .category-pill[data-active="false"] {
   background: var(--samaq-card);
@@ -110,13 +109,13 @@ html, body {
   transition: transform .15s ease, box-shadow .15s ease;
   background: var(--samaq-card) !important;
   border-color: var(--samaq-border) !important;
-  box-shadow: 0 2px 10px rgba(61,15,10,.10);
+  box-shadow: 0 2px 10px rgba(34,51,57,.08);
 }
-.item-card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(61,15,10,.22); }
+.item-card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(34,51,57,.16); }
 
 .fab-cart {
-  box-shadow: 0 10px 30px rgba(210,69,15,.55), 0 0 0 3px var(--samaq-gold-light) inset;
-  background: linear-gradient(135deg, var(--samaq-green) 0%, #EF7A1E 100%) !important;
+  box-shadow: 0 10px 30px rgba(31,167,101,.42), 0 0 0 3px var(--samaq-gold-light) inset;
+  background: linear-gradient(135deg, var(--samaq-green) 0%, var(--samaq-sky) 100%) !important;
 }
 
 .slide-in { animation: slideIn .28s ease forwards; }
@@ -132,11 +131,11 @@ html, body {
 .social-btn {
   width: 44px; height: 44px; border-radius: 14px;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(232,178,60,.12);
-  border: 1px solid rgba(232,178,60,.35);
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.3);
   transition: all .15s ease;
 }
-.social-btn:hover { background: rgba(232,178,60,.24); transform: translateY(-2px); }
+.social-btn:hover { background: rgba(255,255,255,.24); transform: translateY(-2px); }
 
 .store-btn {
   display: flex; align-items: center; gap: 10px;
@@ -149,60 +148,59 @@ html, body {
 
 .drag-handle { cursor: grab; }
 .drag-handle:active { cursor: grabbing; }
-.drag-over { outline: 2px dashed var(--samaq-green); outline-offset: 4px; background: #FBEBC7; }
+.drag-over { outline: 2px dashed var(--samaq-green); outline-offset: 4px; background: #EAF7F1; }
 
 input[type="text"], input[type="tel"], input[type="number"], input[type="url"], textarea, select {
   font-family: inherit;
 }
 
 /* ---- إعادة تلوين الكلاسات اللي متكتوبة بألوان ثابتة (hex) جوه
-        ملفات الـ JSX نفسها (بديل الأبيض/البيج القديم)، عشان الشكل
-        الجديد ينطبق على كل حتة من غير ما نلمس كل ملف JSX ---- */
+        ملفات الـ JSX نفسها، عشان الشكل الجديد ينطبق على كل حتة
+        من غير ما نلمس كل ملف JSX ---- */
 .bg-\[\#f7eed7\], .bg-\[\#f7eed7\]\/95 { background-color: var(--samaq-card) !important; }
-.bg-\[\#f3ead1\] { background-color: #FBEBC7 !important; }
+.bg-\[\#f3ead1\] { background-color: #EAF7F1 !important; }
 .bg-\[\#2e2013\] { background-color: var(--samaq-maroon) !important; }
-.bg-\[\#a47c43\]\/10 { background-color: rgba(232,178,60,.14) !important; }
-.bg-\[\#a47c43\]\/20 { background-color: rgba(232,178,60,.26) !important; }
+.bg-\[\#a47c43\]\/10 { background-color: rgba(31,167,101,.12) !important; }
+.bg-\[\#a47c43\]\/20 { background-color: rgba(31,167,101,.22) !important; }
 .text-\[\#2e2013\] { color: var(--samaq-black) !important; }
 .text-\[\#4a3b2c\] { color: var(--samaq-black) !important; }
 .text-\[\#5c4326\] { color: var(--samaq-blue) !important; }
-.text-\[\#6b4a1f\] { color: #8a5a12 !important; }
+.text-\[\#6b4a1f\] { color: #147a5f !important; }
 .text-\[\#8c7355\] { color: var(--samaq-muted) !important; }
 .border-\[\#e8dcc0\], .border-\[\#ede0c0\] { border-color: var(--samaq-border) !important; }
 
 /* لما نفس الكلاسات دي تبقى فوق الهيدر/شريط علوي غامق (samaq-gradient-header)،
-   لازم النص يبقى فاتح (كريمي) عشان يتقرا، مش غامق زي باقي الصفحة */
+   لازم النص يبقى فاتح (أبيض) عشان يتقرا، مش غامق زي باقي الصفحة */
 .samaq-gradient-header .text-\[\#5c4326\],
 .samaq-gradient-header .text-\[\#8c7355\],
-.samaq-gradient-header.text-\[\#4a3b2c\] { color: #FBEBC7 !important; }
+.samaq-gradient-header.text-\[\#4a3b2c\] { color: #F2FBFF !important; }
 
-/* كروت بيضاء (مودالات، سلة، بوكسات إدارية) — نديها دفء عاجي بدل
-   الأبيض الساكت الكامل */
+/* كروت بيضاء (مودالات، سلة، بوكسات إدارية) — أبيض نضيف */
 .bg-white { background-color: var(--samaq-card) !important; }
-.bg-white\/90 { background-color: rgba(255,251,240,.92) !important; }
-.bg-white\/70 { background-color: rgba(255,251,240,.75) !important; }
+.bg-white\/90 { background-color: rgba(255,255,255,.92) !important; }
+.bg-white\/70 { background-color: rgba(255,255,255,.75) !important; }
 
 /* ---- تعديل ألوان تدرجات Tailwind الرمادية/الزرقاء/الحمراء الجاهزة
-        عشان تتماشى مع اللوحة النارية/الذهبية الجديدة ---- */
-.bg-gray-50   { background-color: #FBEBC7 !important; }
-.bg-gray-100  { background-color: #F6DFA0 !important; }
-.bg-gray-200  { background-color: #EFCE86 !important; }
+        عشان تتماشى مع اللوحة الجديدة ---- */
+.bg-gray-50   { background-color: #EAF7F1 !important; }
+.bg-gray-100  { background-color: #DFF2E9 !important; }
+.bg-gray-200  { background-color: #D2ECE1 !important; }
 .bg-gray-300  { background-color: var(--samaq-border) !important; }
-.border-gray-100 { border-color: #F0DDAE !important; }
+.border-gray-100 { border-color: #E1F4EC !important; }
 .border-gray-200 { border-color: var(--samaq-border) !important; }
-.text-gray-300 { color: #D2B57E !important; }
-.text-gray-400 { color: #B3895A !important; }
+.text-gray-300 { color: #9FCFC0 !important; }
+.text-gray-400 { color: #7FB3A6 !important; }
 .text-gray-500 { color: var(--samaq-muted) !important; }
-.text-gray-600 { color: #6b4a2c !important; }
+.text-gray-600 { color: #3E5D59 !important; }
 .text-gray-700 { color: var(--samaq-black) !important; }
-.hover\:text-gray-600:hover { color: #6b4a2c !important; }
-.bg-blue-50   { background-color: #F6DFA0 !important; }
-.border-blue-50 { border-color: #F6DFA0 !important; }
+.hover\:text-gray-600:hover { color: #3E5D59 !important; }
+.bg-blue-50   { background-color: #DDF2FA !important; }
+.border-blue-50 { border-color: #DDF2FA !important; }
 .text-red-300 { color: #e57373 !important; }
 .text-red-400 { color: #e05353 !important; }
-.text-red-500 { color: #b71c1c !important; }
-.text-red-600 { color: #8f1414 !important; }
-.hover\:text-red-600:hover { color: #8f1414 !important; }
+.text-red-500 { color: #c62828 !important; }
+.text-red-600 { color: #9c1f1f !important; }
+.hover\:text-red-600:hover { color: #9c1f1f !important; }
 
 @media print { .no-print { display: none !important; } }
 
@@ -215,7 +213,7 @@ input[type="text"], input[type="tel"], input[type="number"], input[type="url"], 
   background: var(--samaq-card);
   border: 1px solid var(--samaq-border);
   border-radius: 18px;
-  box-shadow: 0 14px 34px rgba(61,15,10,.22), 0 2px 0 rgba(255,255,255,.4) inset;
+  box-shadow: 0 14px 34px rgba(34,51,57,.14), 0 2px 0 rgba(255,255,255,.6) inset;
   position: relative;
   overflow: hidden;
   transform-origin: right center;
@@ -231,19 +229,19 @@ input[type="text"], input[type="tel"], input[type="number"], input[type="url"], 
 .book-page-inner::before {
   content: "";
   position: absolute; top: 0; bottom: 0; right: 0; width: 26px;
-  background: linear-gradient(to left, rgba(61,15,10,.14), transparent);
+  background: linear-gradient(to left, rgba(34,51,57,.08), transparent);
   pointer-events: none;
 }
 /* طية ورقة زخرفية في الركن، زي علامة صفحة في منيو حقيقي */
 .page-corner-fold {
   position: absolute; left: 0; bottom: 0; width: 34px; height: 34px;
   background: linear-gradient(135deg, transparent 50%, var(--samaq-gold) 50%);
-  opacity: .55;
+  opacity: .5;
   border-top-right-radius: 6px;
 }
 .category-theme-bg {
   position: absolute; inset: 0;
   background-repeat: repeat;
-  opacity: .12;
+  opacity: .10;
   pointer-events: none;
 }

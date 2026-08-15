@@ -18,27 +18,28 @@ function categoryIconFor(name) {
   return IconCatDefault;
 }
 
-// خلفية زخرفية مميزة لكل تصنيف — نار/جريل للحوم والشاورما، فقاعات
-// ورشقات للمشروبات، بطاطس للبطاطس، هدايا للبوكسات، نقط صوص
-// للإضافات... عشان كل صفحة في "الكتاب" ليها طابعها الخاص
+// خلفية زخرفية مميزة لكل تصنيف — بروتين/شوي بلمسة خضراء، مشروبات
+// بلمسة زرقاء سماوية، بطاطس وبوكسات وإضافات بنفس اللوحة المنعشة...
+// عشان كل صفحة في "الكتاب" ليها طابعها الخاص من غير ما نخرج بره
+// الأبيض/الأخضر/الأزرق السماوي
 function categoryTheme(name) {
   const n = String(name || "");
   const flame =
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath fill='%23C1440E' d='M14 40c-2-8 3-13 2-19 4 2 6 6 5 10 3-2 4-6 3-10 6 4 8 11 5 17-2 4-7 6-11 5-3-1-4-2-4-3z'/%3E%3C/svg%3E";
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath fill='%231FA765' d='M14 40c-2-8 3-13 2-19 4 2 6 6 5 10 3-2 4-6 3-10 6 4 8 11 5 17-2 4-7 6-11 5-3-1-4-2-4-3z'/%3E%3C/svg%3E";
   const drink =
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Ccircle cx='14' cy='14' r='5' fill='none' stroke='%23C1440E' stroke-width='2'/%3E%3Ccircle cx='40' cy='34' r='7' fill='none' stroke='%23C1440E' stroke-width='2'/%3E%3Ccircle cx='44' cy='10' r='3' fill='%23C1440E'/%3E%3C/svg%3E";
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Ccircle cx='14' cy='14' r='5' fill='none' stroke='%231583B7' stroke-width='2'/%3E%3Ccircle cx='40' cy='34' r='7' fill='none' stroke='%231583B7' stroke-width='2'/%3E%3Ccircle cx='44' cy='10' r='3' fill='%231583B7'/%3E%3C/svg%3E";
   const potato =
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect x='10' y='8' width='7' height='34' rx='3' fill='%23C1440E'/%3E%3Crect x='22' y='14' width='7' height='28' rx='3' fill='%23C1440E'/%3E%3Crect x='34' y='6' width='7' height='36' rx='3' fill='%23C1440E'/%3E%3C/svg%3E";
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect x='10' y='8' width='7' height='34' rx='3' fill='%231FA765'/%3E%3Crect x='22' y='14' width='7' height='28' rx='3' fill='%231FA765'/%3E%3Crect x='34' y='6' width='7' height='36' rx='3' fill='%231FA765'/%3E%3C/svg%3E";
   const gift =
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect x='10' y='20' width='30' height='22' rx='2' fill='none' stroke='%23C1440E' stroke-width='2'/%3E%3Cpath d='M10 28h30M25 20v22' stroke='%23C1440E' stroke-width='2'/%3E%3C/svg%3E";
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect x='10' y='20' width='30' height='22' rx='2' fill='none' stroke='%231583B7' stroke-width='2'/%3E%3Cpath d='M10 28h30M25 20v22' stroke='%231583B7' stroke-width='2'/%3E%3C/svg%3E";
   const drop =
-    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Cpath fill='%23C1440E' d='M16 6c6 8 9 13 9 18a9 9 0 1 1-18 0c0-5 3-10 9-18z'/%3E%3C/svg%3E";
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Cpath fill='%234FC3B0' d='M16 6c6 8 9 13 9 18a9 9 0 1 1-18 0c0-5 3-10 9-18z'/%3E%3C/svg%3E";
 
-  if (/مشروب/.test(n)) return { pattern: drink, accent: "#0E7C86" };
-  if (/بطاطس/.test(n)) return { pattern: potato, accent: "#C98A1B" };
-  if (/بوكس/.test(n)) return { pattern: gift, accent: "#6B1414" };
-  if (/إضاف/.test(n)) return { pattern: drop, accent: "#A83709" };
-  return { pattern: flame, accent: "#C1440E" };
+  if (/مشروب/.test(n)) return { pattern: drink, accent: "#1583B7" };
+  if (/بطاطس/.test(n)) return { pattern: potato, accent: "#1FA765" };
+  if (/بوكس/.test(n)) return { pattern: gift, accent: "#1583B7" };
+  if (/إضاف/.test(n)) return { pattern: drop, accent: "#4FC3B0" };
+  return { pattern: flame, accent: "#1FA765" };
 }
 
 function CategoryTabs({ categories, activeId, onSelect }) {
