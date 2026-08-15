@@ -11,11 +11,34 @@ function categoryIconFor(name) {
   const n = String(name || "");
   if (/سمك|روبيان|بحري/.test(n)) return IconCatFish;
   if (/مشروب/.test(n)) return IconCatDrink;
-  if (/صلص/.test(n)) return IconCatSauce;
+  if (/صلص|إضاف/.test(n)) return IconCatSauce;
   if (/كافيار/.test(n)) return IconCatCaviar;
   if (/مجمد/.test(n)) return IconCatFrozen;
-  if (/طبخ|طبي/.test(n)) return IconCatChef;
+  if (/طبخ|طبي|بروستد/.test(n)) return IconCatChef;
   return IconCatDefault;
+}
+
+// خلفية زخرفية مميزة لكل تصنيف — نار/جريل للحوم والشاورما، فقاعات
+// ورشقات للمشروبات، بطاطس للبطاطس، هدايا للبوكسات، نقط صوص
+// للإضافات... عشان كل صفحة في "الكتاب" ليها طابعها الخاص
+function categoryTheme(name) {
+  const n = String(name || "");
+  const flame =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath fill='%23C1440E' d='M14 40c-2-8 3-13 2-19 4 2 6 6 5 10 3-2 4-6 3-10 6 4 8 11 5 17-2 4-7 6-11 5-3-1-4-2-4-3z'/%3E%3C/svg%3E";
+  const drink =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Ccircle cx='14' cy='14' r='5' fill='none' stroke='%23C1440E' stroke-width='2'/%3E%3Ccircle cx='40' cy='34' r='7' fill='none' stroke='%23C1440E' stroke-width='2'/%3E%3Ccircle cx='44' cy='10' r='3' fill='%23C1440E'/%3E%3C/svg%3E";
+  const potato =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect x='10' y='8' width='7' height='34' rx='3' fill='%23C1440E'/%3E%3Crect x='22' y='14' width='7' height='28' rx='3' fill='%23C1440E'/%3E%3Crect x='34' y='6' width='7' height='36' rx='3' fill='%23C1440E'/%3E%3C/svg%3E";
+  const gift =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect x='10' y='20' width='30' height='22' rx='2' fill='none' stroke='%23C1440E' stroke-width='2'/%3E%3Cpath d='M10 28h30M25 20v22' stroke='%23C1440E' stroke-width='2'/%3E%3C/svg%3E";
+  const drop =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Cpath fill='%23C1440E' d='M16 6c6 8 9 13 9 18a9 9 0 1 1-18 0c0-5 3-10 9-18z'/%3E%3C/svg%3E";
+
+  if (/مشروب/.test(n)) return { pattern: drink, accent: "#0E7C86" };
+  if (/بطاطس/.test(n)) return { pattern: potato, accent: "#C98A1B" };
+  if (/بوكس/.test(n)) return { pattern: gift, accent: "#6B1414" };
+  if (/إضاف/.test(n)) return { pattern: drop, accent: "#A83709" };
+  return { pattern: flame, accent: "#C1440E" };
 }
 
 function CategoryTabs({ categories, activeId, onSelect }) {
@@ -90,10 +113,13 @@ function ItemImage({ item, className }) {
   );
 }
 
-function ItemCardList({ item, currency, onOpen }) {
+function ItemCardList({ item, currency, onOpen, CategoryIcon }) {
   const hasOptions = item.options && item.options.length > 0;
   return (
-    <div className="item-card bg-white rounded-2xl border border-[#ede0c0] flex items-center gap-3 p-2.5">
+    <div className="item-card relative bg-white rounded-2xl border border-[#ede0c0] flex items-center gap-3 p-2.5 overflow-hidden">
+      {CategoryIcon && !item.image && (
+        <CategoryIcon className="absolute -left-2 -bottom-2 w-16 h-16 text-samaq-gold opacity-15 pointer-events-none" />
+      )}
       {item.image && (
         <div className="relative w-16 h-16 shrink-0 rounded-full overflow-hidden bg-[#f3ead1] cursor-pointer" onClick={() => item.available && onOpen(item)}>
           <img src={item.image} alt={item.name} className="w-full h-full object-cover" loading="lazy" />
@@ -121,10 +147,13 @@ function ItemCardList({ item, currency, onOpen }) {
   );
 }
 
-function ItemCard({ item, currency, onOpen }) {
+function ItemCard({ item, currency, onOpen, CategoryIcon }) {
   const hasOptions = item.options && item.options.length > 0;
   return (
-    <div className="item-card bg-white rounded-2xl overflow-hidden border border-[#ede0c0] flex flex-col">
+    <div className="item-card relative bg-white rounded-2xl overflow-hidden border border-[#ede0c0] flex flex-col">
+      {CategoryIcon && !item.image && (
+        <CategoryIcon className="absolute -left-3 -bottom-3 w-24 h-24 text-samaq-gold opacity-15 pointer-events-none" />
+      )}
       {item.image && (
         <div className="relative w-full bg-[#f3ead1] cursor-pointer" onClick={() => item.available && onOpen(item)}>
           <ItemImage item={item} className="w-full h-48 sm:h-40 object-contain" />
@@ -357,39 +386,48 @@ function MenuPage({ categories, items, settings, cart, setCart }) {
       </div>
       <CategoryTabs categories={activeCategories} activeId={activeCat} onSelect={selectCategory} />
       <div ref={gridTopRef} className="max-w-5xl mx-auto px-3 pb-28">
-        {cat && (
-          <section key={cat.id} className="pt-6 fade-in">
-            {cat.bannerImage && (
-              <div className="w-full rounded-2xl overflow-hidden mb-3 bg-[#f3ead1]">
-                <img src={cat.bannerImage} alt={cat.name} className="w-full h-auto max-h-72 object-contain mx-auto" loading="lazy" />
-              </div>
-            )}
-            <h2 className="text-xl font-display text-[#5c4326] mb-3 flex items-center gap-2">
-              <span className="w-1.5 h-5 bg-samaq-gold rounded-full inline-block"></span>
-              {(() => { const Icon = categoryIconFor(cat.name); return <Icon className="w-5 h-5 text-samaq-blue" />; })()}
-              {cat.name}
-            </h2>
-            {catItems.length > 0 ? (
-              settings.menuLayout === "list" ? (
-                <div className="flex flex-col gap-2.5">
-                  {catItems.map((it) => (
-                    <ItemCardList key={it.id} item={it} currency={settings.currency} onOpen={setOpenItem} />
-                  ))}
+        {cat && (() => {
+          const theme = categoryTheme(cat.name);
+          return (
+            <div className="book-page pt-6">
+              <section key={cat.id} className="book-page-inner">
+                <div className="category-theme-bg" style={{ backgroundImage: `url("${theme.pattern}")`, backgroundSize: "60px 60px" }}></div>
+                <div className="page-corner-fold"></div>
+                <div className="relative">
+                  {cat.bannerImage && (
+                    <div className="w-full rounded-2xl overflow-hidden mb-3 bg-[#f3ead1]">
+                      <img src={cat.bannerImage} alt={cat.name} className="w-full h-auto max-h-72 object-contain mx-auto" loading="lazy" />
+                    </div>
+                  )}
+                  <h2 className="text-xl font-display text-[#5c4326] mb-3 flex items-center gap-2">
+                    <span className="w-1.5 h-5 rounded-full inline-block" style={{ background: theme.accent }}></span>
+                    {(() => { const Icon = categoryIconFor(cat.name); return <Icon className="w-5 h-5 text-samaq-blue" />; })()}
+                    {cat.name}
+                  </h2>
+                  {catItems.length > 0 ? (
+                    settings.menuLayout === "list" ? (
+                      <div className="flex flex-col gap-2.5">
+                        {catItems.map((it) => (
+                          <ItemCardList key={it.id} item={it} currency={settings.currency} onOpen={setOpenItem} CategoryIcon={categoryIconFor(cat.name)} />
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        {catItems.map((it) => (
+                          <ItemCard key={it.id} item={it} currency={settings.currency} onOpen={setOpenItem} CategoryIcon={categoryIconFor(cat.name)} />
+                        ))}
+                      </div>
+                    )
+                  ) : (
+                    <p className="text-sm text-gray-400 text-center py-8 bg-white rounded-2xl border border-[#ede0c0]">
+                      لا يوجد أصناف في هذا التصنيف حاليًا
+                    </p>
+                  )}
                 </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {catItems.map((it) => (
-                    <ItemCard key={it.id} item={it} currency={settings.currency} onOpen={setOpenItem} />
-                  ))}
-                </div>
-              )
-            ) : (
-              <p className="text-sm text-gray-400 text-center py-8 bg-white rounded-2xl border border-[#ede0c0]">
-                لا يوجد أصناف في هذا التصنيف حاليًا
-              </p>
-            )}
-          </section>
-        )}
+              </section>
+            </div>
+          );
+        })()}
       </div>
 
       {openItem && (
