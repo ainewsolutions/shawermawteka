@@ -242,7 +242,7 @@ function CheckoutForm({ cart, setCart, settings, onClose, onDone }) {
             </div>
             {paymentMethod === "stc_pay" && (
               <p className="text-xs text-gray-500 mt-2 bg-blue-50 rounded-lg px-3 py-2">
-                حوّل عبر STC Pay على نفس رقم جوال المطعم الموجود في التطبيق: <span className="font-bold" dir="ltr">{settings.phone}</span>
+                حوّل عبر STC Pay على الرقم <span className="font-bold" dir="ltr">{settings.phone}</span>
               </p>
             )}
           </div>

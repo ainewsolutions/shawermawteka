@@ -329,7 +329,7 @@ function ItemModal({ item, currency, onClose, onAdd }) {
           ))}
 
           <div className="border-t pt-3">
-            <h4 className="font-bold text-sm text-[#5c4326] mb-2">إضافات (اختياري، مجانية)</h4>
+            <h4 className="font-bold text-sm text-[#5c4326] mb-2">إضافات (اختياري)</h4>
             <div className="grid grid-cols-2 gap-2">
               {UNIVERSAL_EXTRAS.map((label) => {
                 const checked = addExtras.includes(label);
