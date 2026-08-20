@@ -63,12 +63,17 @@ function CartDrawer({ cart, setCart, currency, onClose, onCheckout }) {
           {cart.map((l) => (
             <div key={l.lineId} className="border border-gray-100 rounded-2xl p-3">
               <div className="flex items-start justify-between gap-2">
-                <div>
-                  <h4 className="font-bold text-sm text-[#5c4326]">{l.name}</h4>
-                  {l.optionsSummary && l.optionsSummary.length > 0 && (
-                    <p className="text-xs text-gray-500 mt-1">{l.optionsSummary.join(" · ")}</p>
+                <div className="flex items-start gap-2.5 min-w-0">
+                  {l.image && (
+                    <img src={l.image} alt={l.name} className="w-14 h-14 rounded-xl object-cover shrink-0 bg-gray-50" loading="lazy" />
                   )}
-                  {l.notes && <p className="text-xs text-gray-400 mt-1">ملاحظة: {l.notes}</p>}
+                  <div className="min-w-0">
+                    <h4 className="font-bold text-sm text-[#5c4326]">{l.name}</h4>
+                    {l.optionsSummary && l.optionsSummary.length > 0 && (
+                      <p className="text-xs text-gray-500 mt-1">{l.optionsSummary.join(" · ")}</p>
+                    )}
+                    {l.notes && <p className="text-xs text-gray-400 mt-1">ملاحظة: {l.notes}</p>}
+                  </div>
                 </div>
                 <button onClick={() => removeLine(l.lineId)} className="text-red-400 hover:text-red-600 shrink-0">
                   <IconTrash className="w-4 h-4" />
@@ -102,7 +107,14 @@ function CartDrawer({ cart, setCart, currency, onClose, onCheckout }) {
   );
 }
 
-function buildWhatsappMessage({ cart, currency, customerName, customerPhone, method, address, notes, storeName }) {
+const PAYMENT_METHODS = [
+  { id: "cash", label: "الدفع كاش" },
+  { id: "stc_pay", label: "تحويل STC Pay" },
+  { id: "card_on_pickup", label: "شبكة عند الاستلام" },
+];
+
+function buildWhatsappMessage({ cart, currency, customerName, customerPhone, carColor, carNumber, paymentMethod, notes, storeName }) {
+  const paymentLabel = (PAYMENT_METHODS.find((p) => p.id === paymentMethod) || {}).label || paymentMethod;
   const lines = [];
   lines.push(`*طلب جديد من ${storeName}*`);
   lines.push("");
@@ -118,8 +130,10 @@ function buildWhatsappMessage({ cart, currency, customerName, customerPhone, met
   lines.push(`*بيانات العميل*`);
   lines.push(`الاسم: ${customerName}`);
   lines.push(`الهاتف: ${customerPhone}`);
-  lines.push(`طريقة الاستلام: ${method === "delivery" ? "توصيل" : "استلام من الفرع"}`);
-  if (method === "delivery" && address) lines.push(`العنوان: ${address}`);
+  lines.push(`طريقة الاستلام: استلام من الفرع`);
+  lines.push(`لون السيارة: ${carColor}`);
+  lines.push(`رقم السيارة: ${carNumber}`);
+  lines.push(`طريقة الدفع: ${paymentLabel}`);
   if (notes) lines.push(`ملاحظات عامة: ${notes}`);
   return lines.join("\n");
 }
@@ -127,8 +141,9 @@ function buildWhatsappMessage({ cart, currency, customerName, customerPhone, met
 function CheckoutForm({ cart, setCart, settings, onClose, onDone }) {
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
-  const [method, setMethod] = useState("delivery");
-  const [address, setAddress] = useState("");
+  const [carColor, setCarColor] = useState("");
+  const [carNumber, setCarNumber] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("cash");
   const [notes, setNotes] = useState("");
   const [error, setError] = useState("");
 
@@ -139,27 +154,30 @@ function CheckoutForm({ cart, setCart, settings, onClose, onDone }) {
       setError("من فضلك اكتب الاسم ورقم الهاتف");
       return;
     }
-    if (method === "delivery" && !address.trim()) {
-      setError("من فضلك اكتب عنوان التوصيل");
+    if (!carColor.trim() || !carNumber.trim()) {
+      setError("من فضلك اكتب لون ورقم السيارة عشان نلاقيك بسهولة عند الاستلام");
       return;
     }
     setError("");
     setSending(true);
 
     const message = buildWhatsappMessage({
-      cart, currency: settings.currency, customerName, customerPhone, method, address, notes,
+      cart, currency: settings.currency, customerName, customerPhone, carColor, carNumber, paymentMethod, notes,
       storeName: settings.storeName,
     });
 
     const order = {
       id: `order_${Date.now()}`,
       createdAt: new Date().toLocaleString("ar-SA"),
-      customerName, customerPhone, method,
-      address: method === "delivery" ? address : "",
+      customerName, customerPhone,
+      method: "pickup",
+      address: "",
       notes,
       itemsSummary: cart.map((l) => `${l.name} ×${l.qty}`).join("، "),
       total: cartTotal(cart),
       status: "جديد",
+      carColor, carNumber,
+      paymentMethod: (PAYMENT_METHODS.find((p) => p.id === paymentMethod) || {}).label || paymentMethod,
     };
 
     // الأولوية لواتساب — لو تسجيل الطلب في الشيت فشل، ما نمنعش
@@ -186,27 +204,49 @@ function CheckoutForm({ cart, setCart, settings, onClose, onDone }) {
           <button onClick={onClose}><IconClose className="w-5 h-5" /></button>
         </div>
         <div className="p-5 flex flex-col gap-4">
+          <div className="bg-samaq-green/10 border border-samaq-green/30 text-[#155a3a] text-sm font-bold rounded-xl px-3 py-2.5 flex items-center gap-2">
+            الطلب استلام من الفرع فقط
+          </div>
+
           <div>
             <label className="text-sm font-bold text-[#5c4326] mb-1 block">الاسم</label>
             <input value={customerName} onChange={(e) => setCustomerName(e.target.value)} className="w-full border border-gray-200 rounded-xl p-2.5 text-sm focus:outline-none focus:border-samaq-blue" placeholder="اسمك الكامل" />
           </div>
           <div>
-            <label className="text-sm font-bold text-[#5c4326] mb-1 block">رقم الهاتف</label>
+            <label className="text-sm font-bold text-[#5c4326] mb-1 block">رقم الجوال</label>
             <input type="tel" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} className="w-full border border-gray-200 rounded-xl p-2.5 text-sm focus:outline-none focus:border-samaq-blue" placeholder="05xxxxxxxx" dir="ltr" />
           </div>
-          <div>
-            <label className="text-sm font-bold text-[#5c4326] mb-2 block">طريقة الاستلام</label>
-            <div className="flex gap-2">
-              <button onClick={() => setMethod("delivery")} className={`flex-1 rounded-xl py-2.5 text-sm font-bold border ${method === "delivery" ? "bg-samaq-blue text-white border-samaq-blue" : "border-gray-200 text-gray-600"}`}>توصيل</button>
-              <button onClick={() => setMethod("pickup")} className={`flex-1 rounded-xl py-2.5 text-sm font-bold border ${method === "pickup" ? "bg-samaq-blue text-white border-samaq-blue" : "border-gray-200 text-gray-600"}`}>استلام من الفرع</button>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-sm font-bold text-[#5c4326] mb-1 block">لون السيارة</label>
+              <input value={carColor} onChange={(e) => setCarColor(e.target.value)} className="w-full border border-gray-200 rounded-xl p-2.5 text-sm focus:outline-none focus:border-samaq-blue" placeholder="مثال: أبيض" />
+            </div>
+            <div>
+              <label className="text-sm font-bold text-[#5c4326] mb-1 block">رقم السيارة</label>
+              <input value={carNumber} onChange={(e) => setCarNumber(e.target.value)} className="w-full border border-gray-200 rounded-xl p-2.5 text-sm focus:outline-none focus:border-samaq-blue" placeholder="أ ب ج 1234" dir="ltr" />
             </div>
           </div>
-          {method === "delivery" && (
-            <div>
-              <label className="text-sm font-bold text-[#5c4326] mb-1 block">العنوان</label>
-              <textarea value={address} onChange={(e) => setAddress(e.target.value)} rows={2} className="w-full border border-gray-200 rounded-xl p-2.5 text-sm focus:outline-none focus:border-samaq-blue" placeholder="الحي، الشارع، أقرب معلم" />
+
+          <div>
+            <label className="text-sm font-bold text-[#5c4326] mb-2 block">طريقة الدفع</label>
+            <div className="flex flex-col gap-2">
+              {PAYMENT_METHODS.map((p) => (
+                <button
+                  key={p.id}
+                  onClick={() => setPaymentMethod(p.id)}
+                  className={`text-right rounded-xl py-2.5 px-3 text-sm font-bold border ${paymentMethod === p.id ? "bg-samaq-blue text-white border-samaq-blue" : "border-gray-200 text-gray-600"}`}
+                >
+                  {p.label}
+                </button>
+              ))}
             </div>
-          )}
+            {paymentMethod === "stc_pay" && (
+              <p className="text-xs text-gray-500 mt-2 bg-blue-50 rounded-lg px-3 py-2">
+                حوّل عبر STC Pay على نفس رقم جوال المطعم الموجود في التطبيق: <span className="font-bold" dir="ltr">{settings.phone}</span>
+              </p>
+            )}
+          </div>
+
           <div>
             <label className="text-sm font-bold text-[#5c4326] mb-1 block">ملاحظات (اختياري)</label>
             <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} className="w-full border border-gray-200 rounded-xl p-2.5 text-sm focus:outline-none focus:border-samaq-blue" />

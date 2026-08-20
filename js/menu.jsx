@@ -188,9 +188,16 @@ function ItemCard({ item, currency, onOpen, CategoryIcon }) {
   );
 }
 
+// قائمة إضافات موحّدة متاحة لأي صنف في المنيو (مجانية، من غير أي
+// زيادة في السعر) — العميل يقدر يختار أي عدد من "إضافة" وبرضه أي
+// عدد من "بدون" في نفس الوقت
+const UNIVERSAL_EXTRAS = ["كاتشب", "شطة", "مخلل", "طحينة", "بصل", "خس", "بقدونس", "صوص حار", "ثوم", "جبن سائل", "جبن شرائح"];
+
 function ItemModal({ item, currency, onClose, onAdd }) {
   const [qty, setQty] = useState(1);
   const [selections, setSelections] = useState({}); // groupId -> choiceId | [choiceId,...]
+  const [addExtras, setAddExtras] = useState([]); // إضافات مختارة
+  const [withoutExtras, setWithoutExtras] = useState([]); // بدون مختارة
   const [notes, setNotes] = useState("");
 
   useEffect(() => {
@@ -201,6 +208,8 @@ function ItemModal({ item, currency, onClose, onAdd }) {
       }
     });
     setSelections(init);
+    setAddExtras([]);
+    setWithoutExtras([]);
   }, [item]);
 
   const extra = useMemo(() => {
@@ -225,6 +234,10 @@ function ItemModal({ item, currency, onClose, onAdd }) {
     const sel = selections[g.id];
     return !sel || (Array.isArray(sel) && sel.length === 0);
   });
+
+  function toggleExtra(list, setList, label) {
+    setList((prev) => (prev.includes(label) ? prev.filter((x) => x !== label) : [...prev, label]));
+  }
 
   function toggleChoice(group, choiceId) {
     setSelections((prev) => {
@@ -252,10 +265,14 @@ function ItemModal({ item, currency, onClose, onAdd }) {
       })
       .filter(Boolean);
 
+    if (addExtras.length) optionsSummary.push(`إضافات: ${addExtras.join("، ")}`);
+    if (withoutExtras.length) optionsSummary.push(`بدون: ${withoutExtras.join("، ")}`);
+
     onAdd({
       lineId: `${item.id}_${Date.now()}`,
       itemId: item.id,
       name: item.name,
+      image: item.image || "",
       unitPrice,
       qty,
       optionsSummary,
@@ -310,6 +327,36 @@ function ItemModal({ item, currency, onClose, onAdd }) {
               </div>
             </div>
           ))}
+
+          <div className="border-t pt-3">
+            <h4 className="font-bold text-sm text-[#5c4326] mb-2">إضافات (اختياري، مجانية)</h4>
+            <div className="grid grid-cols-2 gap-2">
+              {UNIVERSAL_EXTRAS.map((label) => {
+                const checked = addExtras.includes(label);
+                return (
+                  <label key={"add_" + label} className={`flex items-center gap-2 border rounded-xl px-3 py-2 cursor-pointer text-xs sm:text-sm ${checked ? "border-samaq-green bg-samaq-green/10" : "border-gray-200"}`}>
+                    <input type="checkbox" checked={checked} onChange={() => toggleExtra(addExtras, setAddExtras, label)} className="accent-samaq-green" />
+                    <span className="font-bold">{label}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="border-t pt-3">
+            <h4 className="font-bold text-sm text-[#5c4326] mb-2">بدون (اختياري)</h4>
+            <div className="grid grid-cols-2 gap-2">
+              {UNIVERSAL_EXTRAS.map((label) => {
+                const checked = withoutExtras.includes(label);
+                return (
+                  <label key={"without_" + label} className={`flex items-center gap-2 border rounded-xl px-3 py-2 cursor-pointer text-xs sm:text-sm ${checked ? "border-red-400 bg-red-50" : "border-gray-200"}`}>
+                    <input type="checkbox" checked={checked} onChange={() => toggleExtra(withoutExtras, setWithoutExtras, label)} className="accent-red-500" />
+                    <span className="font-bold">{label}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
 
           <div className="border-t pt-3">
             <h4 className="font-bold text-sm text-[#5c4326] mb-2">ملاحظات (اختياري)</h4>
